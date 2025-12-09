@@ -1,16 +1,18 @@
 import requests
 
-url = "https://countriesnow.space/api/v0.1/countries/cities"
+api_url = "https://countriesnow.space/api/v0.1/countries/cities"
 
 
 def get_cities_and_store_as_csv(country: str):
-
+    """It is a function that uses countriesnow API to fetch all the cities of India.
+    After Fetching the cities it writes the cities in the cities.csv file.
+    """
     body = {
         "country": country
     }
 
     try:
-        cities_data = requests.post("https://countriesnow.space/api/v0.1/countries/cities", json=body)
+        cities_data = requests.post(api_url, json=body)
         cities = cities_data.json()['data']
 
         with open("cities.csv", "w", encoding="utf-8") as f:
@@ -18,7 +20,7 @@ def get_cities_and_store_as_csv(country: str):
             for index, city in enumerate(cities):
                 f.write(f"{index},{city}\n")
 
-        print("All the cities of India stored in the cities.csv.")
+        print("Successful, All the cities of India stored in the cities.csv.")
     except:
         print("Error: Error fetching data.")
 
